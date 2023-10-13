@@ -1,9 +1,11 @@
 import styled from "styled-components";
-
-export const Button = styled.div`
+type ButtonType = {
+  isDisabled?: boolean;
+};
+export const Button = styled.div<ButtonType>`
+  ${({ isDisabled }: ButtonType) => isDisabled && "filter: grayscale(100%)"};
   text-decoration: none;
   user-select: none;
-  font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: bold;
   color: #ffffff;

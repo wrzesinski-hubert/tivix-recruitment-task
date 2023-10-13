@@ -2,4 +2,6 @@ body {
   margin: 0;
   background-color: #333388;
   height: 100vh;
+  user-select: none;
+  font-family: "Roboto", sans-serif;
 }
