@@ -1,9 +1,8 @@
 import styled from "styled-components";
-
-export const TitlePageWrapper = styled.div`
+export const ShippingPageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 60px;
   justify-content: center;
   align-items: center;
   height: 100%;

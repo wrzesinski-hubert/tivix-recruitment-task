@@ -1,10 +1,15 @@
-import { Title } from "./styles";
+import ButtonComponent from "../../components/Button/ButtonComponent";
+import { Title, StyledLink } from "../../styles/general";
+import { TitlePageWrapper } from "./styles";
 
 function TitlePage() {
   return (
-    <div>
+    <TitlePageWrapper>
       <Title> Lego minifigs mystery box</Title>
-    </div>
+      <StyledLink to="/choosing">
+        <ButtonComponent>LET'S GO</ButtonComponent>
+      </StyledLink>
+    </TitlePageWrapper>
   );
 }
 
