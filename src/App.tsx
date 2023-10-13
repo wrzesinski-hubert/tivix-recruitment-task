@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import ChoosingPage from "./pages/ChoosingPage/ChoosingPage";
-import TitlePage from "./pages/titlePage/TitlePage";
+import TitlePage from "./pages/TitlePage/TitlePage";
 import ShippingPage from "./pages/ShippingPage/ShippingPage";
 
 function App() {
