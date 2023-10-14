@@ -6,6 +6,8 @@ export const ShippingPageWrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+  width: 100%;
+  justify-content: center;
 `;
 
 export const ShippingDetailsWrapper = styled.div``;
@@ -14,7 +16,7 @@ export const FormWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 40px;
-  row-gap: 10px;
+  row-gap: 20px;
   width: 500px;
 `;
 
@@ -27,7 +29,6 @@ export const SummaryWrapper = styled.div`
   flex-direction: column;
   border-radius: 30px;
   background-color: #ffffff;
-  align-items: center;
   padding: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -51,14 +52,32 @@ export const PartDescriptionWrapper = styled.div`
   flex-direction: column;
   gap: 5px;
 `;
-export const PartDescriptioTitle = styled.div`
+export const PartDescriptionTitle = styled.div`
   color: #000000;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  font-weight: 400;
+  font-weight: 500;
 `;
 export const PartDescriptioNumber = styled.div`
   color: #ff9a27;
   font-weight: 700;
+`;
+
+export const SummaryTitle = styled.h1`
+  font-size: 26px;
+  text-transform: uppercase;
+  font-weight: 900;
+  align-self: flex-start;
+  margin-left: 15px;
+`;
+
+export const ImageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: 500;
+  gap: 10px;
 `;

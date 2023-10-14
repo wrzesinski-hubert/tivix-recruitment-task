@@ -22,4 +22,5 @@ export const Button = styled.div<ButtonType>`
   &:active {
     box-shadow: 3px 3px 5px 0px rgb(0 0 0 / 50%);
   }
+  align-self: center;
 `;

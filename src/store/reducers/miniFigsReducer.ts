@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: {
-  selectedMiniFig?: { set_num: string; set_img_url: string };
+  selectedMiniFig?: { name: string; set_num: string; set_img_url: string };
   randomMiniFigs: {
     set_num: string;
     name: string;

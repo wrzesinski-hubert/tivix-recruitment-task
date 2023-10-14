@@ -24,11 +24,15 @@ function ChoosingPage() {
       <Title>choose your minifig</Title>
       <FiguresWrapper>
         {arrayOfRandomMinifigs.map(
-          ({ set_num, name, set_img_url, set_url }, index) => (
+          ({ set_num, name, set_img_url, set_url }) => (
             <SingleFigureComponent
               onClick={() => {
                 dispatch(
-                  setMiniFig({ set_num: set_num, set_img_url: set_img_url })
+                  setMiniFig({
+                    name: name,
+                    set_num: set_num,
+                    set_img_url: set_img_url,
+                  })
                 );
               }}
               key={set_num}

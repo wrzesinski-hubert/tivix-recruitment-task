@@ -3,27 +3,39 @@ import InputWithLabelComponent from "../../components/InputWithLabel/InputWithLa
 import { Title } from "../../styles/general";
 import {
   FormWrapper,
+  ImageWrapper,
   PartDescriptioNumber,
-  PartDescriptioTitle,
+  PartDescriptionTitle,
   PartDescriptionWrapper,
   PartImage,
   ShippingDetailsWrapper,
   ShippingPageWrapper,
   SinglePartWrapper,
+  SummaryTitle,
   SummaryWrapper,
 } from "./style";
 import { useEffect, useState } from "react";
 import { getPartsOfMinifig } from "../../utils/utils";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { inputsList } from "./inputsUtils";
 
 function ShippingPage() {
   const selectedMiniFig = useSelector(
     (state: RootState) => state.selectedMiniFig
   );
+  const [areAnyErrors, setAreAnyErrors] = useState(
+    inputsList.map((input) => {
+      return {
+        name: input.label,
+        hasErrors: true,
+      };
+    })
+  );
   const [partsList, setPartsList] = useState<
     { part: { part_img_url: string; part_num: string; name: string } }[]
   >([]);
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -43,32 +55,38 @@ function ShippingPage() {
       <ShippingDetailsWrapper>
         <Title>shipping details</Title>
         <FormWrapper>
-          <InputWithLabelComponent label={"name"} />
-          <InputWithLabelComponent label={"surname"} />
-          <InputWithLabelComponent label={"phone number"} />
-          <InputWithLabelComponent label={"email"} />
-          <InputWithLabelComponent label={"date of birth"} />
-          <InputWithLabelComponent label={"adress"} />
-          <InputWithLabelComponent label={"city"} />
-          <InputWithLabelComponent label={"state"} />
-          <InputWithLabelComponent label={"zip code"} />
+          {inputsList.map((input) => (
+            <InputWithLabelComponent
+              key={input.label}
+              {...input}
+              setAreAnyErrors={setAreAnyErrors}
+            />
+          ))}
         </FormWrapper>
       </ShippingDetailsWrapper>
       <SummaryWrapper>
-        <Title color="#000000">SUMMARY</Title>
-        <div>Harry Potter</div>
-        <img src={selectedMiniFig?.set_img_url} width={150}></img>
-        <div>There are 4 parts in this minifig:</div>
+        <SummaryTitle color="#000000">SUMMARY</SummaryTitle>
+        <ImageWrapper>
+          <img src={selectedMiniFig?.set_img_url} width={150}></img>
+          <div>{selectedMiniFig?.name}</div>
+        </ImageWrapper>
+        <PartDescriptionTitle>
+          There are {partsList.length} parts in this minifig:
+        </PartDescriptionTitle>
         {partsList.map(({ part }) => (
           <SinglePartWrapper key={part.part_num}>
             <PartImage src={part.part_img_url} />
             <PartDescriptionWrapper>
-              <PartDescriptioTitle>{part.name}</PartDescriptioTitle>
+              <PartDescriptionTitle>{part.name}</PartDescriptionTitle>
               <PartDescriptioNumber>{part.part_num}</PartDescriptioNumber>
             </PartDescriptionWrapper>
           </SinglePartWrapper>
         ))}
-        <ButtonComponent>submit</ButtonComponent>
+        <ButtonComponent
+          isDisabled={areAnyErrors.some((item) => item.hasErrors)}
+        >
+          submit
+        </ButtonComponent>
       </SummaryWrapper>
     </ShippingPageWrapper>
   );
