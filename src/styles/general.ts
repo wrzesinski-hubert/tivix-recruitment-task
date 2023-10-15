@@ -19,5 +19,6 @@ type StyledLinkType = {
 
 export const StyledLink = styled(Link)<StyledLinkType>`
   text-decoration: none;
+  align-self: center;
   ${({ $isDisabled }: StyledLinkType) => $isDisabled && "pointer-events: none;"}
 `;

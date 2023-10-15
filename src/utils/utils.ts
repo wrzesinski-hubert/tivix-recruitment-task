@@ -103,3 +103,24 @@ export async function getPartsOfMinifig(setNum?: string) {
   const allParts = data.results;
   return allParts;
 }
+
+export async function sendData(inputValuesToSend: any, selectedMinifig: any) {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(inputValuesToSend),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Error sending data:", error);
+    throw error;
+  }
+}

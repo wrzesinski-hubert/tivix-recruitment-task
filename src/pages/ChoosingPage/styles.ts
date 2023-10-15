@@ -17,7 +17,7 @@ export const FiguresWrapper = styled.div`
 export const LoadingWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  color: #fff;
+  color: #ffffff;
   justify-content: center;
   align-items: center;
   gap: 20px;

@@ -1,6 +1,6 @@
 import ButtonComponent from "../../components/Button/ButtonComponent";
 import InputWithLabelComponent from "../../components/InputWithLabel/InputWithLabelComponent";
-import { Title } from "../../styles/general";
+import { StyledLink, Title } from "../../styles/general";
 import {
   FormWrapper,
   ImageWrapper,
@@ -15,7 +15,7 @@ import {
   SummaryWrapper,
 } from "./style";
 import { useEffect, useState } from "react";
-import { getPartsOfMinifig } from "../../utils/utils";
+import { getPartsOfMinifig, sendData } from "../../utils/utils";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { inputsList } from "./inputsUtils";
@@ -32,8 +32,14 @@ function ShippingPage() {
       };
     })
   );
-  console.log(areAnyErrors);
-
+  const [inputValuesToSend, setInputValuesToSend] = useState(
+    inputsList.map((input) => {
+      return {
+        name: input.label,
+        value: "",
+      };
+    })
+  );
   const [partsList, setPartsList] = useState<
     { part: { part_img_url: string; part_num: string; name: string } }[]
   >([]);
@@ -52,6 +58,20 @@ function ShippingPage() {
     fetchData();
   }, [selectedMinifig]);
 
+  const handleInputValueChange = (name: string, value: string) => {
+    setInputValuesToSend((prevInputValues) => {
+      const updatedInputValues = prevInputValues.map((input) => {
+        if (input.name === name) {
+          return { name, value };
+        }
+        return input;
+      });
+      return updatedInputValues;
+    });
+  };
+
+  console.log(inputValuesToSend);
+
   return (
     <ShippingPageWrapper>
       <ShippingDetailsWrapper>
@@ -62,6 +82,7 @@ function ShippingPage() {
               key={input.label}
               {...input}
               setAreAnyErrors={setAreAnyErrors}
+              handleInputValueChange={handleInputValueChange}
             />
           ))}
         </FormWrapper>
@@ -84,11 +105,16 @@ function ShippingPage() {
             </PartDescriptionWrapper>
           </SinglePartWrapper>
         ))}
-        <ButtonComponent
-          isDisabled={areAnyErrors.some((item) => item.hasErrors)}
+        <StyledLink
+          to="/"
+          onClick={() => sendData(inputValuesToSend, selectedMinifig)}
         >
-          submit
-        </ButtonComponent>
+          <ButtonComponent
+            isDisabled={areAnyErrors.some((item) => item.hasErrors)}
+          >
+            submit
+          </ButtonComponent>
+        </StyledLink>
       </SummaryWrapper>
     </ShippingPageWrapper>
   );

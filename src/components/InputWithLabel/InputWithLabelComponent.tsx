@@ -12,6 +12,7 @@ function InputWithLabelComponent({
   type,
   inputValidationRules,
   setAreAnyErrors,
+  handleInputValueChange,
 }: {
   type?: string;
   label: string;
@@ -27,63 +28,40 @@ function InputWithLabelComponent({
       }[]
     >
   >;
+  handleInputValueChange: (name: string, value: string) => void;
 }) {
   const [inputStates, setInputStates] = useState<{
     value: string;
     isTouched: boolean;
-    isValid: boolean;
     errors: string[];
   }>({
     value: "",
     isTouched: false,
-    isValid: false,
     errors: [],
   });
 
   useEffect(() => {
-    inputValidationRules?.map((rule) => {
+    const newErrors: string[] = [];
+    let isValid = true;
+
+    inputValidationRules.forEach((rule) => {
       if (!rule.rule(inputStates.value)) {
-        setAreAnyErrors(
-          (
-            prev: {
-              name: string;
-              hasErrors: boolean;
-            }[]
-          ) => {
-            const newArray = [...prev];
-            const index = newArray.findIndex(
-              (element) => element.name === label
-            );
-            newArray[index].hasErrors = true;
-            return newArray;
-          }
-        );
-        setInputStates((prev) => {
-          return {
-            ...prev,
-            errors: [...prev.errors, rule.message],
-            isValid: false,
-          };
-        });
-      } else {
-        setInputStates({ ...inputStates, errors: [], isValid: true });
-        setAreAnyErrors(
-          (
-            prev: {
-              name: string;
-              hasErrors: boolean;
-            }[]
-          ) => {
-            const newArray = [...prev];
-            const index = newArray.findIndex(
-              (element) => element.name === label
-            );
-            newArray[index].hasErrors = false;
-            return newArray;
-          }
-        );
+        newErrors.push(rule.message);
+        isValid = false;
       }
     });
+
+    setAreAnyErrors((prev) => {
+      const updatedErrors = prev.map((item) =>
+        item.name === label ? { ...item, hasErrors: !isValid } : item
+      );
+      return updatedErrors;
+    });
+
+    setInputStates((prevState) => ({
+      ...prevState,
+      errors: newErrors,
+    }));
   }, [inputStates.value]);
 
   const unique = (value: string, index: number, self: string[]) => {
@@ -93,7 +71,7 @@ function InputWithLabelComponent({
     <InputWrapper>
       <Label>
         {label}
-        {inputStates.isTouched && !inputStates.isValid && (
+        {inputStates.isTouched && inputStates.errors.length > 0 && (
           <ErrorMessageWrapper>
             {inputStates.errors.filter(unique).map((message, index) => (
               <ErrorMessage key={index}>*{message}</ErrorMessage>
@@ -103,10 +81,11 @@ function InputWithLabelComponent({
       </Label>
       <Input
         type={type}
-        hasError={inputStates.isTouched && !inputStates.isValid}
-        onChange={(e) =>
-          setInputStates({ ...inputStates, value: e.target.value })
-        }
+        hasError={inputStates.isTouched && inputStates.errors.length > 0}
+        onChange={(e) => {
+          setInputStates({ ...inputStates, value: e.target.value });
+          handleInputValueChange(label, e.target.value);
+        }}
         onBlur={() => setInputStates({ ...inputStates, isTouched: true })}
         value={inputStates.value}
       />
