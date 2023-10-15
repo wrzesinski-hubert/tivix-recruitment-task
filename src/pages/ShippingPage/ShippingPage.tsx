@@ -112,7 +112,10 @@ function ShippingPage() {
           to="/"
           onClick={() => {
             dispatch(setInitial());
-            sendData(inputValuesToSend, selectedMinifig);
+            sendData({
+              inputValuesToSend: inputValuesToSend,
+              selectedMinifig: selectedMinifig,
+            });
           }}
         >
           <ButtonComponent

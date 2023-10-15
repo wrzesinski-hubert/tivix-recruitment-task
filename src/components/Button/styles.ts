@@ -2,7 +2,7 @@ import styled from "styled-components";
 type ButtonType = {
   isDisabled?: boolean;
 };
-export const Button = styled.div<ButtonType>`
+export const Button = styled.button<ButtonType>`
   ${({ isDisabled }: ButtonType) =>
     isDisabled && "filter: grayscale(100%);pointer-events: none;"};
   text-decoration: none;
@@ -20,6 +20,7 @@ export const Button = styled.div<ButtonType>`
   justify-content: center;
   box-shadow: 2px 2px 3px 0px rgb(0 0 0 / 50%);
   cursor: pointer;
+  border: 0px;
   &:active {
     box-shadow: 3px 3px 5px 0px rgb(0 0 0 / 50%);
   }

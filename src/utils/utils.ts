@@ -1,6 +1,5 @@
-import { MinifigType } from "../types/types";
-
-const API_KEY = "a9a125116a1d7485cd87ef98acfe18e7";
+import { MinifigType, MinifigWithDetailType } from "../types/types";
+import { API_KEY } from "./config";
 
 async function fetchAPI(url: string) {
   try {
@@ -104,14 +103,20 @@ export async function getPartsOfMinifig(setNum?: string) {
   return allParts;
 }
 
-export async function sendData(inputValuesToSend: any, selectedMinifig: any) {
+export async function sendData(data: {
+  inputValuesToSend?: {
+    name: string;
+    value: string;
+  }[];
+  selectedMinifig?: MinifigWithDetailType;
+}) {
   try {
     const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(inputValuesToSend),
+      body: JSON.stringify(data),
     });
 
     if (!response.ok) {
