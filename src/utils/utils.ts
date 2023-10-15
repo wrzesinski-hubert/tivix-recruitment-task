@@ -34,7 +34,6 @@ async function getMinifigsFromSet(setNum: string, allMinifigs: MinifigType[]) {
     return [];
   }
   fetchedSetNumbers.add(setNum);
-  console.log(fetchedSetNumbers);
   const url = `https://rebrickable.com/api/v3/lego/sets/${setNum}/minifigs/`;
   const data = await fetchAPI(url);
   const allFigsFromSet = data.results;
@@ -67,7 +66,6 @@ export async function fetchRandomMinifigs(amountOfFigures: number) {
         allMinifigs
       );
       allMinifigs = allMinifigs.concat(minifigsFromSet);
-      console.log("ALLMINIFIGS", allMinifigs);
       if (allMinifigs.length < amountOfFigures) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }

@@ -73,8 +73,6 @@ function ShippingPage() {
     });
   };
 
-  console.log(inputValuesToSend);
-
   return (
     <ShippingPageWrapper>
       <ShippingDetailsWrapper>
