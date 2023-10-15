@@ -117,6 +117,7 @@ function ShippingPage() {
               selectedMinifig: selectedMinifig,
             });
           }}
+          $isDisabled={areAnyErrors.some((item) => item.hasErrors)}
         >
           <ButtonComponent
             isDisabled={areAnyErrors.some((item) => item.hasErrors)}

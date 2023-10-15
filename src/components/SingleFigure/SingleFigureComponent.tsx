@@ -17,7 +17,14 @@ function SingleFigureComponent({
 }) {
   return (
     <FigureWrapper selected={isSelected} onClick={onClick}>
-      <Image src={img} alt={name} />
+      {img ? (
+        <Image src={img} alt={name} />
+      ) : (
+        <Image
+          src={"https://rebrickable.com/static/img/nil_mf.jpg"}
+          alt={name}
+        />
+      )}
       <Description color={"#260c44f"}>{name}</Description>
       <Description color={"#ff9a27"}>
         <StyledAnchor href={url} target="_blank" color={"#ff9a27"}>
