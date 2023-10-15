@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import ButtonComponent from "../../components/Button/ButtonComponent";
 import { Title, StyledLink } from "../../styles/general";
 import { TitlePageWrapper } from "./styles";

@@ -91,7 +91,11 @@ function ShippingPage() {
       <SummaryWrapper>
         <SummaryTitle color="#000000">SUMMARY</SummaryTitle>
         <ImageWrapper>
-          <img src={selectedMinifig?.set_img_url} width={150}></img>
+          <img
+            src={selectedMinifig?.set_img_url}
+            width={150}
+            alt={selectedMinifig?.name}
+          ></img>
           <div>{selectedMinifig?.name}</div>
         </ImageWrapper>
         <PartDescriptionTitle>
