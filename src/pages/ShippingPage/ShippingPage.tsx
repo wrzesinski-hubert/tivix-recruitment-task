@@ -32,6 +32,8 @@ function ShippingPage() {
       };
     })
   );
+  console.log(areAnyErrors);
+
   const [partsList, setPartsList] = useState<
     { part: { part_img_url: string; part_num: string; name: string } }[]
   >([]);

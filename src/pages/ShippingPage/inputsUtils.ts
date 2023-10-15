@@ -1,14 +1,18 @@
 const validationRules = {
-  required: (val: string | null | undefined) =>
+  required: (val: string | number) =>
     val !== null && val !== undefined && val !== "",
   phone: (phone: number) => {
-    const re = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+    const re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
     return re.test(String(phone));
   },
   email: (email: string) => {
     const re =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
+  },
+  zipcode: (zipcode: string) => {
+    const re = /^[0-9]{2}-[0-9]{3}/;
+    return re.test(String(zipcode));
   },
 };
 export const inputsList = [
@@ -52,6 +56,7 @@ export const inputsList = [
   },
   {
     label: "date of birth",
+    type: "date",
     inputValidationRules: [
       {
         rule: validationRules.required,
@@ -92,6 +97,10 @@ export const inputsList = [
       {
         rule: validationRules.required,
         message: "Zip code is required",
+      },
+      {
+        rule: validationRules.zipcode,
+        message: "Zip code is invalid",
       },
     ],
   },

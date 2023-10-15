@@ -3,7 +3,8 @@ type ButtonType = {
   isDisabled?: boolean;
 };
 export const Button = styled.div<ButtonType>`
-  ${({ isDisabled }: ButtonType) => isDisabled && "filter: grayscale(100%)"};
+  ${({ isDisabled }: ButtonType) =>
+    isDisabled && "filter: grayscale(100%);pointer-events: none;"};
   text-decoration: none;
   user-select: none;
   font-size: 16px;

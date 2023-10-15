@@ -9,9 +9,11 @@ import {
 
 function InputWithLabelComponent({
   label,
+  type,
   inputValidationRules,
   setAreAnyErrors,
 }: {
+  type?: string;
   label: string;
   inputValidationRules: {
     rule: (val: any) => boolean;
@@ -100,6 +102,7 @@ function InputWithLabelComponent({
         )}
       </Label>
       <Input
+        type={type}
         hasError={inputStates.isTouched && !inputStates.isValid}
         onChange={(e) =>
           setInputStates({ ...inputStates, value: e.target.value })

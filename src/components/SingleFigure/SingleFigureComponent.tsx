@@ -11,7 +11,7 @@ function SingleFigureComponent({
   isSelected: boolean;
   name: string;
   img: string;
-  url: string;
+  url?: string;
   id: string;
   onClick: () => void;
 }) {

@@ -14,10 +14,10 @@ export const Title = styled.h1<TitleType>`
 `;
 
 type StyledLinkType = {
-  isDisabled?: boolean;
+  $isDisabled?: boolean;
 };
 
 export const StyledLink = styled(Link)<StyledLinkType>`
   text-decoration: none;
-  ${({ isDisabled }: StyledLinkType) => isDisabled && "pointer-events: none;"}
+  ${({ $isDisabled }: StyledLinkType) => $isDisabled && "pointer-events: none;"}
 `;

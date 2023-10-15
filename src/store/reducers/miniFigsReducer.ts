@@ -1,13 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { MinifigWithDetailType } from "../../types/types";
 
 const initialState: {
-  selectedMinifig?: { name: string; set_num: string; set_img_url: string };
-  randomMinifigs: {
-    set_num: string;
-    name: string;
-    set_img_url: string;
-    set_url: string;
-  }[];
+  selectedMinifig?: MinifigWithDetailType;
+  randomMinifigs: MinifigWithDetailType[];
   loadingMinifigs: boolean;
 } = {
   selectedMinifig: undefined,

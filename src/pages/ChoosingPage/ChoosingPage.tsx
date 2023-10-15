@@ -52,7 +52,7 @@ function ChoosingPage() {
           )
         )}
       </FiguresWrapper>
-      <StyledLink to="/shipping" isDisabled={isButtonDisabled}>
+      <StyledLink to="/shipping" $isDisabled={isButtonDisabled}>
         <ButtonComponent isDisabled={isButtonDisabled}>
           proceed to shipment
         </ButtonComponent>
