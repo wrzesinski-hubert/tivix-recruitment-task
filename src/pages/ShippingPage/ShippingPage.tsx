@@ -16,11 +16,14 @@ import {
 } from "./style";
 import { useEffect, useState } from "react";
 import { getPartsOfMinifig, sendData } from "../../utils/utils";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { inputsList } from "./inputsUtils";
+import { setInitial } from "../../store/reducers/miniFigsReducer";
 
 function ShippingPage() {
+  const dispatch = useDispatch();
+
   const selectedMinifig = useSelector(
     (state: RootState) => state.selectedMinifig
   );
@@ -107,7 +110,10 @@ function ShippingPage() {
         ))}
         <StyledLink
           to="/"
-          onClick={() => sendData(inputValuesToSend, selectedMinifig)}
+          onClick={() => {
+            dispatch(setInitial());
+            sendData(inputValuesToSend, selectedMinifig);
+          }}
         >
           <ButtonComponent
             isDisabled={areAnyErrors.some((item) => item.hasErrors)}

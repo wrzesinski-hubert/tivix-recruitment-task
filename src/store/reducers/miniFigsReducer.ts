@@ -24,9 +24,14 @@ export const appSlice = createSlice({
     setLoadingMinifigs: (state, action) => {
       state.loadingMinifigs = action.payload;
     },
+    setInitial: (state) => {
+      state.selectedMinifig = undefined;
+      state.randomMinifigs = [];
+      state.loadingMinifigs = false;
+    },
   },
 });
 
-export const { setMinifig, setRandomMinifigs, setLoadingMinifigs } =
+export const { setMinifig, setRandomMinifigs, setLoadingMinifigs, setInitial } =
   appSlice.actions;
 export default appSlice.reducer;
