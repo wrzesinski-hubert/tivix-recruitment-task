@@ -1,8 +1,8 @@
 const API_KEY = "a9a125116a1d7485cd87ef98acfe18e7";
 
-export async function getAllSets(setName: string) {
+async function fetchRandomSet(setName: string) {
   const response = await fetch(
-    `https://rebrickable.com/api/v3/lego/sets/?search=${setName}`,
+    `https://rebrickable.com/api/v3/lego/sets/?min_parts=1&search=${setName}`,
     {
       method: "GET",
       headers: {
@@ -12,12 +12,11 @@ export async function getAllSets(setName: string) {
     }
   );
   const data = await response.json();
-  const allSets = data.results;
-
-  return allSets;
+  const shuffledSets = data.results?.sort(() => 0.5 - Math.random());
+  return shuffledSets[0];
 }
 
-export async function getMinifigsFromSet(setNum: string) {
+async function getMinifigsFromSet(setNum: string) {
   const response = await fetch(
     `https://rebrickable.com/api/v3/lego/sets/${setNum}/minifigs/`,
     {
@@ -34,16 +33,9 @@ export async function getMinifigsFromSet(setNum: string) {
   return allSets;
 }
 
-export async function fetchRandomMinifigs(amountOfFigures: number) {
-  // const allSets = await getAllSets("Harry Potter");
-  // let allMinifigs: any[] = [];
-  // allSets.forEach(async (element: { set_num: string }) => {
-  //   const xd = await getMinifigsFromSet(element.set_num);
-  //   allMinifigs.push(xd.results);
-  // });
-  // console.log(allMinifigs);
+async function fetchDetailsAboutFigure(set_num: string) {
   const response = await fetch(
-    "https://rebrickable.com/api/v3/lego/minifigs/?search=Harry%20Potter",
+    `https://rebrickable.com/api/v3/lego/minifigs/${set_num}`,
     {
       method: "GET",
       headers: {
@@ -52,11 +44,52 @@ export async function fetchRandomMinifigs(amountOfFigures: number) {
       },
     }
   );
-  const data = await response.json();
-  const shuffled = data.results.sort(() => 0.5 - Math.random());
-  const threeRandom = shuffled.slice(0, amountOfFigures);
+  const details = await response.json();
+  return details;
+}
 
-  return threeRandom;
+export async function fetchRandomMinifigs(amountOfFigures: number) {
+  const fetchAllMinifigs = async (amountOfFigures: number) => {
+    let allMinifigs: {
+      id: number;
+      quantity: number;
+      set_img_url: string;
+      set_name: string;
+      set_num: string;
+    }[] = [];
+
+    while (allMinifigs.length < amountOfFigures) {
+      const randomSet = await fetchRandomSet("Harry Potter");
+      const minifigsFromSet = await getMinifigsFromSet(randomSet.set_num);
+      allMinifigs = allMinifigs.concat(minifigsFromSet);
+      console.log("ALLMINIFIGS", allMinifigs);
+
+      if (allMinifigs.length < amountOfFigures) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+    }
+
+    return allMinifigs;
+  };
+  const allMinifigs = await fetchAllMinifigs(amountOfFigures);
+
+  const fetchDetailsAboutArrayOfFigures = async (
+    randomFigures: { set_num: string }[]
+  ) => {
+    return Promise.all(
+      randomFigures.map(async (figure) => {
+        const figureWithDetail = await fetchDetailsAboutFigure(figure.set_num);
+        return figureWithDetail;
+      })
+    );
+  };
+
+  const shuffled = allMinifigs.sort(() => 0.5 - Math.random());
+  const randomFigures = shuffled.slice(0, amountOfFigures);
+  const randomFiguresWithDetails = await fetchDetailsAboutArrayOfFigures(
+    randomFigures
+  );
+  return randomFiguresWithDetails;
 }
 
 export async function getPartsOfMinifig(setNum?: string) {

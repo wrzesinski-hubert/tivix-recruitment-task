@@ -4,7 +4,10 @@ import { Title, StyledLink } from "../../styles/general";
 import { TitlePageWrapper } from "./styles";
 import { fetchRandomMinifigs } from "../../utils/utils";
 import { useDispatch } from "react-redux";
-import { setRandomMiniFigs } from "../../store/reducers/miniFigsReducer";
+import {
+  setLoadingMinifigs,
+  setRandomMinifigs,
+} from "../../store/reducers/miniFigsReducer";
 const AMOUNT_OF_FIGURES = 3;
 
 function TitlePage() {
@@ -12,8 +15,10 @@ function TitlePage() {
 
   async function fetchData() {
     try {
+      dispatch(setLoadingMinifigs(true));
       const data = await fetchRandomMinifigs(AMOUNT_OF_FIGURES);
-      dispatch(setRandomMiniFigs(data));
+      dispatch(setRandomMinifigs(data));
+      dispatch(setLoadingMinifigs(false));
     } catch (error) {
       console.error("Error fetching minifigs:", error);
     }

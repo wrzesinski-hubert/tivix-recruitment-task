@@ -1,30 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: {
-  selectedMiniFig?: { name: string; set_num: string; set_img_url: string };
-  randomMiniFigs: {
+  selectedMinifig?: { name: string; set_num: string; set_img_url: string };
+  randomMinifigs: {
     set_num: string;
     name: string;
     set_img_url: string;
     set_url: string;
   }[];
+  loadingMinifigs: boolean;
 } = {
-  selectedMiniFig: undefined,
-  randomMiniFigs: [],
+  selectedMinifig: undefined,
+  randomMinifigs: [],
+  loadingMinifigs: false,
 };
 
 export const appSlice = createSlice({
   name: "miniFigsReducer",
   initialState,
   reducers: {
-    setMiniFig: (state, action) => {
-      state.selectedMiniFig = action.payload;
+    setMinifig: (state, action) => {
+      state.selectedMinifig = action.payload;
     },
-    setRandomMiniFigs: (state, action) => {
-      state.randomMiniFigs = action.payload;
+    setRandomMinifigs: (state, action) => {
+      state.randomMinifigs = action.payload;
+    },
+    setLoadingMinifigs: (state, action) => {
+      state.loadingMinifigs = action.payload;
     },
   },
 });
 
-export const { setMiniFig, setRandomMiniFigs } = appSlice.actions;
+export const { setMinifig, setRandomMinifigs, setLoadingMinifigs } =
+  appSlice.actions;
 export default appSlice.reducer;

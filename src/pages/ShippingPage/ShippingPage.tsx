@@ -21,8 +21,8 @@ import { RootState } from "../../store/store";
 import { inputsList } from "./inputsUtils";
 
 function ShippingPage() {
-  const selectedMiniFig = useSelector(
-    (state: RootState) => state.selectedMiniFig
+  const selectedMinifig = useSelector(
+    (state: RootState) => state.selectedMinifig
   );
   const [areAnyErrors, setAreAnyErrors] = useState(
     inputsList.map((input) => {
@@ -40,7 +40,7 @@ function ShippingPage() {
     async function fetchData() {
       try {
         const data = await getPartsOfMinifig(
-          selectedMiniFig ? selectedMiniFig.set_num : undefined
+          selectedMinifig ? selectedMinifig.set_num : undefined
         );
         setPartsList(data);
       } catch (error) {
@@ -48,7 +48,7 @@ function ShippingPage() {
       }
     }
     fetchData();
-  }, [selectedMiniFig]);
+  }, [selectedMinifig]);
 
   return (
     <ShippingPageWrapper>
@@ -67,8 +67,8 @@ function ShippingPage() {
       <SummaryWrapper>
         <SummaryTitle color="#000000">SUMMARY</SummaryTitle>
         <ImageWrapper>
-          <img src={selectedMiniFig?.set_img_url} width={150}></img>
-          <div>{selectedMiniFig?.name}</div>
+          <img src={selectedMinifig?.set_img_url} width={150}></img>
+          <div>{selectedMinifig?.name}</div>
         </ImageWrapper>
         <PartDescriptionTitle>
           There are {partsList.length} parts in this minifig:
