@@ -5,9 +5,15 @@ export const ShippingPageWrapper = styled.div`
   gap: 60px;
   justify-content: center;
   align-items: center;
-  height: 100%;
   width: 100%;
   justify-content: center;
+  @media (max-width: 1100px) {
+    flex-direction: column;
+    min-height: 100%;
+  }
+  @media (min-width: 1100px) {
+    height: 100%;
+  }
 `;
 
 export const ShippingDetailsWrapper = styled.div``;
