@@ -20,7 +20,7 @@ The first step contains a button that initiates the drawing.
 
 ## Second page
 
-The second step involves fetching three random minifigures from the Harry Potter series. It might take a little longer because, initially, we need to fetch a random Harry Potter LEGO set. However, some of them lack figures, so it's necessary to keep fetching until we find three figures.
+The second step involves fetching three random minifigures from the Harry Potter series.
 
 ![Alt text](readme/image-1.png)
 ![Alt text](readme/image-2.png)
