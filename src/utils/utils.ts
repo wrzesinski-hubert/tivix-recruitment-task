@@ -35,11 +35,9 @@ async function repeatFetch(url: string, additionalParameter?: string) {
 }
 
 async function fetchAllThemes(setName: string) {
-  const data2 = await repeatFetch(
-    "https://rebrickable.com/api/v3/lego/themes/"
-  );
+  const data = await repeatFetch("https://rebrickable.com/api/v3/lego/themes/");
 
-  const allThemes = data2.results.filter(
+  const allThemes = data.results.filter(
     (theme: { id: number; parent_id: number; name: string }) =>
       theme.name.includes(setName)
   );
@@ -51,11 +49,11 @@ async function fetchMinifigsFromTheme(
 ) {
   let allMiniFigs: any[] = [];
   const fetchPromises = allThemes.map(async (theme) => {
-    const data2 = await repeatFetch(
+    const data = await repeatFetch(
       "https://rebrickable.com/api/v3/lego/minifigs/",
       `&in_theme_id=${theme.id}`
     );
-    allMiniFigs = allMiniFigs.concat(data2.results);
+    allMiniFigs = allMiniFigs.concat(data.results);
   });
 
   await Promise.all(fetchPromises);
